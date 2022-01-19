@@ -3,6 +3,7 @@ using models.first_web_api;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using first_web_api.Services.CharacterService;
 
 namespace first_web_api.Controllers
 {
@@ -10,18 +11,19 @@ namespace first_web_api.Controllers
     [Route("[controller]")]
     public class CharacterController : ControllerBase
     {
-        private static List<Character> Test = new List<Character>()
-        {
-            new Character(),
-            new Character{Id=1,Name="Bilal"},
-            new Character{Id=2,Name="Nader" , age=24}
+      
+        private readonly ICharcterService _characterService;
 
-        };
+        public CharacterController(ICharcterService characterService)
+        {
+            _characterService = characterService;
+
+        }
 
         [HttpGet]
         public ActionResult<List<Character>> Get()
         {
-            return Ok(Test);
+            return Ok(_characterService.GetAllCharacters());
 
         }
         /*        
@@ -33,7 +35,7 @@ namespace first_web_api.Controllers
         [HttpGet("GetFisrtItem")]
         public ActionResult<Character> GetSingle()
         {
-            return Ok(Test[0]);
+            return Ok(_characterService.GetFirstCharacter());
         }
 
 
@@ -41,7 +43,7 @@ namespace first_web_api.Controllers
         [Route("GetSecondItem")]
         public ActionResult<Character> GetSingle2()
         {
-            return Ok(Test[1]);
+            return Ok(_characterService.GetSecondCharacter());
         }
 
 
@@ -49,14 +51,14 @@ namespace first_web_api.Controllers
         [HttpGet("{id}")]
         public ActionResult<Character> GetSingle(int id)
         {
-            return Ok(Test.FirstOrDefault(c => c.Id == id));
+            return Ok(_characterService.GetCharacterByID(id));
         }
+
 
         [HttpPost]
         public ActionResult<List<Character>> AddCharachter(Character newCharachter)
         {
-            Test.Add(newCharachter);
-            return Ok(Test);
+            return Ok(_characterService.AddCharacters(newCharachter));
 
         }
 
