@@ -52,6 +52,14 @@ namespace first_web_api.Controllers
             return Ok(Test.FirstOrDefault(c => c.Id == id));
         }
 
+        [HttpPost]
+        public ActionResult<List<Character>> AddCharachter(Character newCharachter)
+        {
+            Test.Add(newCharachter);
+            return Ok(Test);
+
+        }
+
     }
 
 }
