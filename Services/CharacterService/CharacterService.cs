@@ -1,6 +1,7 @@
 ﻿using models.first_web_api;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace first_web_api.Services.CharacterService
 {
@@ -13,28 +14,28 @@ namespace first_web_api.Services.CharacterService
             new Character{Id=2,Name="Nader" , age=24}
 
         };
-        public List<Character> AddCharacters(Character newCharacter)
+        public async Task<List<Character>> AddCharacters(Character newCharacter)
         {
             Test.Add(newCharacter);
             return Test;
         }
 
-        public List<Character> GetAllCharacters()
+        public async Task<List<Character>> GetAllCharacters()
         {
             return Test;
         }
 
-        public Character GetCharacterByID(int id)
+        public async Task<Character> GetCharacterByID(int id)
         {
             return Test.FirstOrDefault(c => c.Id == id);
         }
 
-        public Character GetFirstCharacter()
+        public async Task<Character> GetFirstCharacter()
         {
             return Test[0];
         }
 
-        public Character GetSecondCharacter()
+        public async Task<Character> GetSecondCharacter()
         {
             return Test[1];       
         }

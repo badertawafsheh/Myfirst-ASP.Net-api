@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using first_web_api.Services.CharacterService;
+using System.Threading.Tasks;
 
 namespace first_web_api.Controllers
 {
@@ -21,9 +22,9 @@ namespace first_web_api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Character>> Get()
+        public async Task<ActionResult<List<Character>>> Get()
         {
-            return Ok(_characterService.GetAllCharacters());
+            return Ok(await _characterService.GetAllCharacters());
 
         }
         /*        
@@ -33,32 +34,32 @@ namespace first_web_api.Controllers
         
         */
         [HttpGet("GetFisrtItem")]
-        public ActionResult<Character> GetSingle()
+        public async Task<ActionResult<Character>> GetSingle()
         {
-            return Ok(_characterService.GetFirstCharacter());
+            return Ok(await _characterService.GetFirstCharacter());
         }
 
 
         [HttpGet]
         [Route("GetSecondItem")]
-        public ActionResult<Character> GetSingle2()
+        public async Task<ActionResult<Character>> GetSingle2()
         {
-            return Ok(_characterService.GetSecondCharacter());
+            return Ok(await _characterService.GetSecondCharacter());
         }
 
 
         // Routing using param 
         [HttpGet("{id}")]
-        public ActionResult<Character> GetSingle(int id)
+        public async Task<ActionResult<Character>> GetSingle(int id)
         {
-            return Ok(_characterService.GetCharacterByID(id));
+            return Ok(await _characterService.GetCharacterByID(id));
         }
 
 
         [HttpPost]
-        public ActionResult<List<Character>> AddCharachter(Character newCharachter)
+        public async Task<ActionResult<List<Character>>> AddCharachter(Character newCharachter)
         {
-            return Ok(_characterService.AddCharacters(newCharachter));
+            return Ok(await _characterService.AddCharacters(newCharachter));
 
         }
 

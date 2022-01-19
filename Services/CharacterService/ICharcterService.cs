@@ -1,16 +1,17 @@
 ﻿using models.first_web_api;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace first_web_api.Services.CharacterService
 {
     public interface ICharcterService
     {
-        List<Character> GetAllCharacters();
-        Character GetCharacterByID(int id);
-        Character GetFirstCharacter();
-        Character GetSecondCharacter();
+        Task<List<Character>> GetAllCharacters();
+        Task<Character> GetCharacterByID(int id);
+        Task<Character> GetFirstCharacter();
+        Task<Character> GetSecondCharacter();
 
-        List<Character> AddCharacters(Character newCharacter);
+        Task<List<Character>> AddCharacters(Character newCharacter);
 
     }
 }
