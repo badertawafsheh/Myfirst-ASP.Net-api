@@ -1,4 +1,5 @@
-﻿using first_web_api.Models;
+﻿using first_web_api.DTOs.Character;
+using first_web_api.Models;
 using models.first_web_api;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,12 +8,13 @@ namespace first_web_api.Services.CharacterService
 {
     public interface ICharcterService
     {
-        Task<ServiceResponse<List<Character>>> GetAllCharacters();
-        Task<ServiceResponse<Character>> GetCharacterByID(int id);
-        Task<ServiceResponse<Character>> GetFirstCharacter();
-        Task<ServiceResponse<Character>> GetSecondCharacter();
+        // GetCharacterDto like Character  but now i wanna to send the user every thing expect id so in add character i will send the add charcterDto 
+        Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters();
+        Task<ServiceResponse<GetCharacterDto>> GetCharacterByID(int id);
+        Task<ServiceResponse<GetCharacterDto>> GetFirstCharacter();
+        Task<ServiceResponse<GetCharacterDto>> GetSecondCharacter();
 
-        Task<ServiceResponse<List<Character>>> AddCharacters(Character newCharacter);
+        Task<ServiceResponse<List<GetCharacterDto>>> AddCharacters(AddCharacterDto newCharacter);
 
     }
 }

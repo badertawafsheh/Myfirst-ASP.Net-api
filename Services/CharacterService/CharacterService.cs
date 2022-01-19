@@ -1,4 +1,6 @@
-﻿using first_web_api.Models;
+﻿using AutoMapper;
+using first_web_api.DTOs.Character;
+using first_web_api.Models;
 using models.first_web_api;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,41 +17,47 @@ namespace first_web_api.Services.CharacterService
             new Character{Id=2,Name="Nader" , age=24}
 
         };
-        public async Task<ServiceResponse<List<Character>>> AddCharacters(Character newCharacter)
+        private readonly IMapper _mapper;
+
+        public CharacterService(IMapper mapper)
         {
-            var serviceResponse = new ServiceResponse<List<Character>>();
-            Test.Add(newCharacter);
-            serviceResponse.Data = Test;
+            _mapper = mapper; 
+
+        }
+        public async Task<ServiceResponse<List<GetCharacterDto>>> AddCharacters(AddCharacterDto newCharacter)
+        {
+            var serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
+            Test.Add(_mapper.Map <Character> (newCharacter));
+            serviceResponse.Data = Test.Select(c=>_mapper.Map<GetCharacterDto>(c)).ToList();
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<List<Character>>> GetAllCharacters()
+        public async Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters()
         {
-            var serviceResponse = new ServiceResponse<List<Character>>();
-            serviceResponse.Data = Test;
+            var serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
+            serviceResponse.Data = Test.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
 
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<Character>> GetCharacterByID(int id)
+        public async Task<ServiceResponse<GetCharacterDto>> GetCharacterByID(int id)
         {
-            var serviceResponse = new ServiceResponse<Character>();
-            serviceResponse.Data = Test.FirstOrDefault(c => c.Id == id);
-
+            var serviceResponse = new ServiceResponse<GetCharacterDto>();
+            serviceResponse.Data = _mapper.Map< GetCharacterDto >(Test.FirstOrDefault(c => c.Id == id));
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<Character>> GetFirstCharacter()
+        public async Task<ServiceResponse<GetCharacterDto>> GetFirstCharacter()
         {
-            var serviceResponse = new ServiceResponse<Character>();
-            serviceResponse.Data = Test[0];
+            var serviceResponse = new ServiceResponse<GetCharacterDto>();
+            serviceResponse.Data = _mapper.Map < GetCharacterDto > (Test[0]);
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<Character>> GetSecondCharacter()
+        public async Task<ServiceResponse<GetCharacterDto>> GetSecondCharacter()
         {
-            var serviceResponse = new ServiceResponse<Character>();
-            serviceResponse.Data = Test[1];
+            var serviceResponse = new ServiceResponse<GetCharacterDto>();
+            serviceResponse.Data = _mapper.Map<GetCharacterDto>(Test[1]);
             return serviceResponse;
         }
     }

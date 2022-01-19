@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using first_web_api.Services.CharacterService;
 using System.Threading.Tasks;
 using first_web_api.Models;
+using first_web_api.DTOs.Character;
 
 namespace first_web_api.Controllers
 {
@@ -13,7 +14,7 @@ namespace first_web_api.Controllers
     [Route("[controller]")]
     public class CharacterController : ControllerBase
     {
-      
+
         private readonly ICharcterService _characterService;
 
         public CharacterController(ICharcterService characterService)
@@ -23,7 +24,7 @@ namespace first_web_api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ServiceResponse<List<Character>>>> Get()
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Get()
         {
             return Ok(await _characterService.GetAllCharacters());
 
@@ -35,7 +36,7 @@ namespace first_web_api.Controllers
         
         */
         [HttpGet("GetFirstItem")]
-        public async Task<ActionResult<ServiceResponse<Character>>> GetSingle()
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle()
         {
             return Ok(await _characterService.GetFirstCharacter());
         }
@@ -43,7 +44,7 @@ namespace first_web_api.Controllers
 
         [HttpGet]
         [Route("GetSecondItem")]
-        public async Task<ActionResult<ServiceResponse<Character>>> GetSingle2()
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle2()
         {
             return Ok(await _characterService.GetSecondCharacter());
         }
@@ -51,14 +52,14 @@ namespace first_web_api.Controllers
 
         // Routing using param 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<Character>>> GetSingle(int id)
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle(int id)
         {
             return Ok(await _characterService.GetCharacterByID(id));
         }
 
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<Character>>>> AddCharachter(Character newCharachter)
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> AddCharachter(AddCharacterDto newCharachter)
         {
             return Ok(await _characterService.AddCharacters(newCharachter));
 

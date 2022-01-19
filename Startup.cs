@@ -33,6 +33,7 @@ namespace first_web_api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "first_web_api", Version = "v1" });
             });
+            services.AddAutoMapper(typeof(Startup));
             services.AddScoped<ICharcterService, CharacterService>();
         }
 
