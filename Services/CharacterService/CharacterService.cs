@@ -1,4 +1,5 @@
-﻿using models.first_web_api;
+﻿using first_web_api.Models;
+using models.first_web_api;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,30 +15,42 @@ namespace first_web_api.Services.CharacterService
             new Character{Id=2,Name="Nader" , age=24}
 
         };
-        public async Task<List<Character>> AddCharacters(Character newCharacter)
+        public async Task<ServiceResponse<List<Character>>> AddCharacters(Character newCharacter)
         {
+            var serviceResponse = new ServiceResponse<List<Character>>();
             Test.Add(newCharacter);
-            return Test;
+            serviceResponse.Data = Test;
+            return serviceResponse;
         }
 
-        public async Task<List<Character>> GetAllCharacters()
+        public async Task<ServiceResponse<List<Character>>> GetAllCharacters()
         {
-            return Test;
+            var serviceResponse = new ServiceResponse<List<Character>>();
+            serviceResponse.Data = Test;
+
+            return serviceResponse;
         }
 
-        public async Task<Character> GetCharacterByID(int id)
+        public async Task<ServiceResponse<Character>> GetCharacterByID(int id)
         {
-            return Test.FirstOrDefault(c => c.Id == id);
+            var serviceResponse = new ServiceResponse<Character>();
+            serviceResponse.Data = Test.FirstOrDefault(c => c.Id == id);
+
+            return serviceResponse;
         }
 
-        public async Task<Character> GetFirstCharacter()
+        public async Task<ServiceResponse<Character>> GetFirstCharacter()
         {
-            return Test[0];
+            var serviceResponse = new ServiceResponse<Character>();
+            serviceResponse.Data = Test[0];
+            return serviceResponse;
         }
 
-        public async Task<Character> GetSecondCharacter()
+        public async Task<ServiceResponse<Character>> GetSecondCharacter()
         {
-            return Test[1];       
+            var serviceResponse = new ServiceResponse<Character>();
+            serviceResponse.Data = Test[1];
+            return serviceResponse;
         }
     }
 }
