@@ -1,6 +1,6 @@
 using System;
 
-namespace first_web_api
+namespace models.first_web_api
 {
     public class WeatherForecast
     {
