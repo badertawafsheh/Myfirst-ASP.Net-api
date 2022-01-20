@@ -15,6 +15,7 @@ namespace first_web_api.Services.CharacterService
         Task<ServiceResponse<GetCharacterDto>> GetSecondCharacter();
 
         Task<ServiceResponse<List<GetCharacterDto>>> AddCharacters(AddCharacterDto newCharacter);
+        Task<ServiceResponse<GetCharacterDto>> UpdateCharacter(UpdateCharacterDto updatedCharacter);
 
     }
 }

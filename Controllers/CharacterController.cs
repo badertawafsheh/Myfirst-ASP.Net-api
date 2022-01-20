@@ -64,6 +64,19 @@ namespace first_web_api.Controllers
             return Ok(await _characterService.AddCharacters(newCharachter));
 
         }
+        [HttpPut]
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> UpdateCharacter(UpdateCharacterDto updatedCharachter)
+        {
+            //return Ok(await _characterService.UpdateCharacter(updatedCharachter)); 
+            // to return Not found if the character not found in the first case it wil send always response OK 
+            var response = await _characterService.UpdateCharacter(updatedCharachter); 
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
+
 
     }
 
