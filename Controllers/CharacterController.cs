@@ -64,6 +64,8 @@ namespace first_web_api.Controllers
             return Ok(await _characterService.AddCharacters(newCharachter));
 
         }
+
+
         [HttpPut]
         public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> UpdateCharacter(UpdateCharacterDto updatedCharachter)
         {
@@ -75,6 +77,21 @@ namespace first_web_api.Controllers
                 return NotFound(response);
             }
             return Ok(response);
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> Delete(int id)
+        {
+            //return Ok(await _characterService.DeleteCharacter(id));
+            var response = await _characterService.DeleteCharacter(id);
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+
+
         }
 
 

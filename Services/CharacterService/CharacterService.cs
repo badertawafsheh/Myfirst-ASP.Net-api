@@ -35,6 +35,28 @@ namespace first_web_api.Services.CharacterService
             return serviceResponse;
         }
 
+        public async Task<ServiceResponse<List<GetCharacterDto>>> DeleteCharacter(int id)
+        {
+            //First Search for character using First(throw expetion if not match ) not FirstOrDefault(return null if no matching)
+            // Then Remove it from the list (which name the list is TEST ) 
+            // Then return all characthers
+            var serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
+            try
+            {
+                Character character = Test.First(c => c.Id == id);
+                Test.Remove(character);
+                serviceResponse.Data= Test.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
+
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Messsage = ex.Message;
+            }
+            return serviceResponse;
+        }
+
+    
         public async Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters()
         {
             var serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
