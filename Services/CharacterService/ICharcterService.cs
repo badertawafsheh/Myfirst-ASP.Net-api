@@ -11,8 +11,8 @@ namespace first_web_api.Services.CharacterService
         // GetCharacterDto like Character  but now i wanna to send the user every thing expect id so in add character i will send the add charcterDto 
         Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters();
         Task<ServiceResponse<GetCharacterDto>> GetCharacterByID(int id);
-        Task<ServiceResponse<GetCharacterDto>> GetFirstCharacter();
-        Task<ServiceResponse<GetCharacterDto>> GetSecondCharacter();
+        //Task<ServiceResponse<GetCharacterDto>> GetFirstCharacter();
+        //Task<ServiceResponse<GetCharacterDto>> GetSecondCharacter();
 
         Task<ServiceResponse<List<GetCharacterDto>>> AddCharacters(AddCharacterDto newCharacter);
         Task<ServiceResponse<GetCharacterDto>> UpdateCharacter(UpdateCharacterDto updatedCharacter);

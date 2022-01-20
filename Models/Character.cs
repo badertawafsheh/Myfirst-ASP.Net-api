@@ -1,4 +1,5 @@
-﻿using System;
+﻿using first_web_api.Models;
+using System;
 
 namespace models.first_web_api
 {
@@ -10,7 +11,8 @@ namespace models.first_web_api
         public string Description { get; set; } = "Hello, Welcome to my first WepApi. using Api dotnet";
 
         public RpgClass Class { get; set; } = RpgClass.Nader;
-         
+        public User User { get; set; }
+
     }
 
 }

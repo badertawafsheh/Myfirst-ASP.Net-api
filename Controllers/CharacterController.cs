@@ -35,19 +35,20 @@ namespace first_web_api.Controllers
          * [Route("GetFirstItem")]
         
         */
-        [HttpGet("GetFirstItem")]
-        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle()
-        {
-            return Ok(await _characterService.GetFirstCharacter());
-        }
+
+        //[HttpGet("GetFirstItem")]
+        //public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle()
+        //{
+        //    return Ok(await _characterService.GetFirstCharacter());
+        //}
 
 
-        [HttpGet]
-        [Route("GetSecondItem")]
-        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle2()
-        {
-            return Ok(await _characterService.GetSecondCharacter());
-        }
+        //[HttpGet]
+        //[Route("GetSecondItem")]
+        //public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle2()
+        //{
+        //    return Ok(await _characterService.GetSecondCharacter());
+        //}
 
 
         // Routing using param 

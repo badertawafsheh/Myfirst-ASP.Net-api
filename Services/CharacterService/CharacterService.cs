@@ -97,19 +97,20 @@ namespace first_web_api.Services.CharacterService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<GetCharacterDto>> GetFirstCharacter()
-        {
-            var serviceResponse = new ServiceResponse<GetCharacterDto>();
-            serviceResponse.Data = _mapper.Map<GetCharacterDto>(Test[0]);
-            return serviceResponse;
-        }
+        //public async Task<ServiceResponse<GetCharacterDto>> GetFirstCharacter()
+        //{
+        //    var serviceResponse = new ServiceResponse<GetCharacterDto>();
+        //    var dbCharacter = await _context.Characters.FirstOrDefaultAsync(Math.Max(c.Id));
+        //    serviceResponse.Data = _mapper.Map<GetCharacterDto>(Test[0]);
+        //    return serviceResponse;
+        //}
 
-        public async Task<ServiceResponse<GetCharacterDto>> GetSecondCharacter()
-        {
-            var serviceResponse = new ServiceResponse<GetCharacterDto>();
-            serviceResponse.Data = _mapper.Map<GetCharacterDto>(Test[1]);
-            return serviceResponse;
-        }
+        //public async Task<ServiceResponse<GetCharacterDto>> GetSecondCharacter()
+        //{
+        //    var serviceResponse = new ServiceResponse<GetCharacterDto>();
+        //    serviceResponse.Data = _mapper.Map<GetCharacterDto>(Test[1]);
+        //    return serviceResponse;
+        //}
 
         public async Task<ServiceResponse<GetCharacterDto>> UpdateCharacter(UpdateCharacterDto updatedCharacter)
         {
