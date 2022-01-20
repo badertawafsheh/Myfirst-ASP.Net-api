@@ -32,10 +32,14 @@ namespace first_web_api.Services.CharacterService
         public async Task<ServiceResponse<List<GetCharacterDto>>> AddCharacters(AddCharacterDto newCharacter)
         {
             var serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
+
             Character character = _mapper.Map<Character>(newCharacter);
-            character.Id = Test.Max(c => c.Id) + 1; // Make a unique ID and when post without ID will make by default 0 so check the max and increment by 1
-            Test.Add(character);
-            serviceResponse.Data = Test.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
+            //character.Id = Test.Max(c => c.Id) + 1; // Make a unique ID and when post without ID will make by default 0 so check the max and increment by 1
+            //Test.Add(character);
+            _context.Characters.AddAsync(character);
+            await _context.SaveChangesAsync();
+            //serviceResponse.Data = Test.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
+            serviceResponse.Data = await _context.Characters.Select(c => _mapper.Map<GetCharacterDto>(c)).ToListAsync();
             return serviceResponse;
         }
 
