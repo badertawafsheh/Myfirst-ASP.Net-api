@@ -51,9 +51,13 @@ namespace first_web_api.Services.CharacterService
             var serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
             try
             {
-                Character character = Test.First(c => c.Id == id);
-                Test.Remove(character);
-                serviceResponse.Data = Test.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
+                //Character character = Test.First(c => c.Id == id);
+                //Test.Remove(character);
+                //serviceResponse.Data = Test.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
+                Character character = await _context.Characters.FirstAsync(c => c.Id == id);
+                _context.Characters.Remove(character);
+                await _context.SaveChangesAsync();
+                serviceResponse.Data = _context.Characters.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList(); // if i put await and toListASync will not remove it because it provides search sort ..etc not delete
 
             }
             catch (Exception ex)
