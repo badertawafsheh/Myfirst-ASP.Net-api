@@ -29,28 +29,7 @@ namespace first_web_api.Controllers
             return Ok(await _characterService.GetAllCharacters());
 
         }
-        /*        
-         
-         *[HttpGet]
-         * [Route("GetFirstItem")]
-        
-        */
-
-        //[HttpGet("GetFirstItem")]
-        //public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle()
-        //{
-        //    return Ok(await _characterService.GetFirstCharacter());
-        //}
-
-
-        //[HttpGet]
-        //[Route("GetSecondItem")]
-        //public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle2()
-        //{
-        //    return Ok(await _characterService.GetSecondCharacter());
-        //}
-
-
+       
         // Routing using param 
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle(int id)
@@ -94,6 +73,26 @@ namespace first_web_api.Controllers
 
 
         }
+         /*        
+         
+         *[HttpGet]
+         * [Route("GetFirstItem")]
+        
+        */
+
+        //[HttpGet("GetFirstItem")]
+        //public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle()
+        //{
+        //    return Ok(await _characterService.GetFirstCharacter());
+        //}
+
+
+        //[HttpGet]
+        //[Route("GetSecondItem")]
+        //public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle2()
+        //{
+        //    return Ok(await _characterService.GetSecondCharacter());
+        //}
 
 
     }
