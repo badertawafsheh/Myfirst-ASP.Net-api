@@ -7,9 +7,11 @@ using first_web_api.Services.CharacterService;
 using System.Threading.Tasks;
 using first_web_api.Models;
 using first_web_api.DTOs.Character;
+using Microsoft.AspNetCore.Authorization;
 
 namespace first_web_api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class CharacterController : ControllerBase
