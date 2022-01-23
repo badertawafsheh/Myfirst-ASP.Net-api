@@ -119,23 +119,7 @@ namespace first_web_api.Data
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
-
-
-
-
-
-
-
-
-
-
-
-
-            return string.Empty;
         }
-
-
-
 
     }
 }
