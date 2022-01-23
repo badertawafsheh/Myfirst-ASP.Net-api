@@ -2,11 +2,13 @@
 using first_web_api.Data;
 using first_web_api.DTOs.Character;
 using first_web_api.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using models.first_web_api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace first_web_api.Services.CharacterService
@@ -22,13 +24,17 @@ namespace first_web_api.Services.CharacterService
         };
         private readonly IMapper _mapper;
         private readonly DataContext _context;
+        private readonly IHttpContextAccessor _HttpContextAccessor;
 
 
-        public CharacterService(IMapper mapper, DataContext context)
+        public CharacterService(IMapper mapper, DataContext context, IHttpContextAccessor HttpContextAccessor)
         {
             _mapper = mapper;
             _context = context;
+            _HttpContextAccessor = HttpContextAccessor;
         }
+        private int GetUserID() =>int.Parse(_HttpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+
         public async Task<ServiceResponse<List<GetCharacterDto>>> AddCharacters(AddCharacterDto newCharacter)
         {
             var serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
@@ -69,11 +75,11 @@ namespace first_web_api.Services.CharacterService
         }
 
 
-        public async Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters(int id)
+        public async Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters()
         {
             var serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
             //GET Characters from DB
-            var dbCharacters = await _context.Characters.Where(c => c.User.Id == id).ToListAsync();
+            var dbCharacters = await _context.Characters.Where(c => c.User.Id == GetUserID()).ToListAsync();
             //serviceResponse.Data = Test.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
             serviceResponse.Data = dbCharacters.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
 

@@ -9,7 +9,7 @@ namespace first_web_api.Services.CharacterService
     public interface ICharcterService
     {
         // GetCharacterDto like Character  but now i wanna to send the user every thing expect id so in add character i will send the add charcterDto 
-        Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters(int id);
+        Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters();
         Task<ServiceResponse<GetCharacterDto>> GetCharacterByID(int id);
         //Task<ServiceResponse<GetCharacterDto>> GetFirstCharacter();
         //Task<ServiceResponse<GetCharacterDto>> GetSecondCharacter();
