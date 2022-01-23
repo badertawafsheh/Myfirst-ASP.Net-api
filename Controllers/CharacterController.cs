@@ -1,4 +1,4 @@
-﻿ using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using models.first_web_api;
 using System;
 using System.Linq;
@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using first_web_api.Models;
 using first_web_api.DTOs.Character;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace first_web_api.Controllers
 {
@@ -28,10 +29,11 @@ namespace first_web_api.Controllers
         [HttpGet]
         public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Get()
         {
-            return Ok(await _characterService.GetAllCharacters());
+            int id = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+            return Ok(await _characterService.GetAllCharacters(id));
 
         }
-       
+
         // Routing using param 
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle(int id)
@@ -53,7 +55,7 @@ namespace first_web_api.Controllers
         {
             //return Ok(await _characterService.UpdateCharacter(updatedCharachter)); 
             // to return Not found if the character not found in the first case it wil send always response OK 
-            var response = await _characterService.UpdateCharacter(updatedCharachter); 
+            var response = await _characterService.UpdateCharacter(updatedCharachter);
             if (response.Data == null)
             {
                 return NotFound(response);
@@ -75,12 +77,12 @@ namespace first_web_api.Controllers
 
 
         }
-         /*        
-         
-         *[HttpGet]
-         * [Route("GetFirstItem")]
-        
-        */
+        /*        
+
+        *[HttpGet]
+        * [Route("GetFirstItem")]
+
+       */
 
         //[HttpGet("GetFirstItem")]
         //public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle()

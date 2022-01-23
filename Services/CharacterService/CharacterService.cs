@@ -69,11 +69,11 @@ namespace first_web_api.Services.CharacterService
         }
 
 
-        public async Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters()
+        public async Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters(int id)
         {
             var serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
             //GET Characters from DB
-            var dbCharacters = await _context.Characters.ToListAsync();
+            var dbCharacters = await _context.Characters.Where(c => c.User.Id == id).ToListAsync();
             //serviceResponse.Data = Test.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
             serviceResponse.Data = dbCharacters.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
 
@@ -97,12 +97,12 @@ namespace first_web_api.Services.CharacterService
             return serviceResponse;
         }
 
-        //public async Task<ServiceResponse<GetCharacterDto>> GetFirstCharacter()
+        //public async task<serviceresponse<getcharacterdto>> getfirstcharacter()
         //{
-        //    var serviceResponse = new ServiceResponse<GetCharacterDto>();
-        //    var dbCharacter = await _context.Characters.FirstOrDefaultAsync(Math.Max(c.Id));
-        //    serviceResponse.Data = _mapper.Map<GetCharacterDto>(Test[0]);
-        //    return serviceResponse;
+        //    var serviceresponse = new serviceresponse<getcharacterdto>();
+        //    var dbcharacter = await _context.characters.firstordefaultasync(math.max(c.id));
+        //    serviceresponse.data = _mapper.map<getcharacterdto>(test[0]);
+        //    return serviceresponse;
         //}
 
         //public async Task<ServiceResponse<GetCharacterDto>> GetSecondCharacter()
