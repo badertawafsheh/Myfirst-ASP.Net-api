@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,15 @@ namespace first_web_api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "first_web_api", Version = "v1" });
+                c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Description ="Standrad Autharization header usin Bearer scheme . Example : \"berar {token}\" " , 
+                    In=ParameterLocation.Header,
+                    Name = "Authorization" , 
+                    Type=SecuritySchemeType.ApiKey
+
+                });
+                c.OperationFilter<SecurityRequirementsOperationFilter>();
             });
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<ICharcterService, CharacterService>();
@@ -45,7 +55,7 @@ namespace first_web_api
             {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
-                ValidateIssuer = true,
+                ValidateIssuer = false,
                 ValidateAudience = false,
             }
             );

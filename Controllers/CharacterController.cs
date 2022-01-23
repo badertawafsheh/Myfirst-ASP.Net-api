@@ -24,7 +24,7 @@ namespace first_web_api.Controllers
             _characterService = characterService;
 
         }
-
+        //[AllowAnonymous] When the methods Secure it will unlock and allow it to show the users
         [HttpGet]
         public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Get()
         {
