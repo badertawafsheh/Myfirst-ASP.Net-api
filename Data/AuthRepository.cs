@@ -27,7 +27,6 @@ namespace first_web_api.Data
                 response.Messsage = "User Already Exists";
                 return response;
             }
-
             CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
             user.PasswordHash = passwordHash;
             user.PasswiordSalt = passwordSalt;
