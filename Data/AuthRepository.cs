@@ -1,4 +1,5 @@
 ﻿using first_web_api.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace first_web_api.Data
@@ -19,21 +20,30 @@ namespace first_web_api.Data
         public async Task<ServiceResponse<int>> Register(User user, string password)
         {
             //Make a hashing for the Password
+            ServiceResponse<int> response = new ServiceResponse<int>();
+            if (await userExist(user.userName))
+            {
+                response.Success = false;
+                response.Messsage = "User Already Exists";
+                return response;
+            }
+
             CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
-            user.PasswordHash=passwordHash;
-            user.PasswiordSalt=passwordSalt;
-
-
+            user.PasswordHash = passwordHash;
+            user.PasswiordSalt = passwordSalt;
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            ServiceResponse<int> response = new ServiceResponse<int>();
             response.Data = user.Id;
             return response;
         }
 
-        public Task<bool> userExist(string username)
+        public async Task<bool> userExist(string username)
         {
-            throw new System.NotImplementedException();
+            if (await _context.Users.AnyAsync(x => x.userName.ToLower().Equals(username.ToLower())))
+            {
+                return true;
+            }
+            return false;
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
