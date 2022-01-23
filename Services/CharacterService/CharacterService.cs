@@ -33,7 +33,7 @@ namespace first_web_api.Services.CharacterService
             _context = context;
             _HttpContextAccessor = HttpContextAccessor;
         }
-        private int GetUserID() =>int.Parse(_HttpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+        private int GetUserID() => int.Parse(_HttpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
 
         public async Task<ServiceResponse<List<GetCharacterDto>>> AddCharacters(AddCharacterDto newCharacter)
         {
@@ -43,9 +43,12 @@ namespace first_web_api.Services.CharacterService
             //character.Id = Test.Max(c => c.Id) + 1; // Make a unique ID and when post without ID will make by default 0 so check the max and increment by 1
             //Test.Add(character);
             //serviceResponse.Data = Test.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
+            character.User = await _context.Users.FirstOrDefaultAsync(u => u.Id == GetUserID());
             _context.Characters.AddAsync(character);
             await _context.SaveChangesAsync();
-            serviceResponse.Data = await _context.Characters.Select(c => _mapper.Map<GetCharacterDto>(c)).ToListAsync();
+            serviceResponse.Data = await _context.Characters
+                .Where(c => c.User.Id == GetUserID())
+                .Select(c => _mapper.Map<GetCharacterDto>(c)).ToListAsync();
             return serviceResponse;
         }
 
