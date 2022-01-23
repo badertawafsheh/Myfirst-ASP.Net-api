@@ -12,9 +12,29 @@ namespace first_web_api.Data
             _context = context;
 
         }
-        public Task<ServiceResponse<string>> Login(string username, string password)
+        public async Task<ServiceResponse<string>> Login(string username, string password)
         {
-            throw new System.NotImplementedException();
+            ServiceResponse<string> response = new ServiceResponse<string>();
+            // Search for the user 
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.userName.ToLower() == username.ToLower()); // will return null if the user dosent match so next step check if user == null 
+            if (user == null)
+            {
+                response.Success = false;
+                response.Messsage = "User Not found ! ";
+            }
+            else if (!VerfiyPasswordHash(password, user.PasswordHash, user.PasswiordSalt))
+            {
+                response.Success = false;
+                response.Messsage = "Password Incorrect, Try Again ! ";
+            }
+            else
+            {
+                response.Data = user.Id.ToString();
+            }
+
+            return response;
+
+
         }
 
         public async Task<ServiceResponse<int>> Register(User user, string password)
@@ -54,7 +74,23 @@ namespace first_web_api.Data
             }
 
         }
+        private bool VerfiyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
+            {
+                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                for (int i = 0; i < computedHash.Length; i++)
+                {
+                    if (computedHash[i] != passwordHash[i])
+                    {
+                        return false;
+                    }
+                }
+                return true;
+
+            }
 
 
+        }
     }
 }
