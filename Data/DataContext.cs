@@ -4,15 +4,17 @@ using models.first_web_api;
 
 namespace first_web_api.Data
 {
-    public class DataContext:DbContext
+    public class DataContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options) :base(options)
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
 
         }
         public DbSet<Character> Characters { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Weapon> Weapons { get; set; }
+
+        public DbSet<Skill> Skills { get; set; }
 
     }
 }
