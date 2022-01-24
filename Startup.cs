@@ -40,7 +40,7 @@ namespace first_web_api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "first_web_api", Version = "v1" });
                 c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
-                    Description = "Standrad Autharization header usin Bearer scheme . Example : \"Bearer {token}\" ", 
+                    Description = "Standrad Autharization header using Bearer scheme.Example : \"Bearer {token}\" ", 
                     In=ParameterLocation.Header,
                     Name = "Authorization" , 
                     Type=SecuritySchemeType.ApiKey

@@ -135,13 +135,23 @@ namespace first_web_api.Services.CharacterService
             try
             {
                 //Character characters = Test.FirstOrDefault(c => c.Id == updatedCharacter.Id);
-                Character characters = await _context.Characters.FirstOrDefaultAsync(c => c.Id == updatedCharacter.Id);
-                characters.Name = updatedCharacter.Name;
-                characters.Description = updatedCharacter.Description;
-                characters.age = updatedCharacter.age;
-                characters.Class = updatedCharacter.Class;
-                serviceResponse.Data = _mapper.Map<GetCharacterDto>(characters);
-                await _context.SaveChangesAsync();
+                Character characters = await _context.Characters
+                    .Include(c => c.User)
+                    .FirstOrDefaultAsync(c => c.Id == updatedCharacter.Id);
+                if (characters.User.Id == GetUserID())
+                {
+                    characters.Name = updatedCharacter.Name;
+                    characters.Description = updatedCharacter.Description;
+                    characters.age = updatedCharacter.age;
+                    characters.Class = updatedCharacter.Class;
+                    serviceResponse.Data = _mapper.Map<GetCharacterDto>(characters);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    serviceResponse.Success=false;
+                    serviceResponse.Messsage = "Charachter Not Found "; 
+                }
             }
             catch (Exception ex)
             {
