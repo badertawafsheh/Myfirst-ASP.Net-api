@@ -57,12 +57,15 @@ namespace first_web_api.Services.CharacterService
             //First Search for character using First(throw expetion if not match ) not FirstOrDefault(return null if no matching)
             // Then Remove it from the list (which name the list is TEST ) 
             // Then return all characthers
+            /* 
+             //Character character = Test.First(c => c.Id == id);
+             //Test.Remove(character);
+             //serviceResponse.Data = Test.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
+             */
             var serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
             try
             {
-                //Character character = Test.First(c => c.Id == id);
-                //Test.Remove(character);
-                //serviceResponse.Data = Test.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
+               
                 Character character = await _context.Characters.FirstOrDefaultAsync(c => c.Id == id && c.User.Id == GetUserID());
                 if (character != null)
                 {
@@ -116,22 +119,6 @@ namespace first_web_api.Services.CharacterService
             }
             return serviceResponse;
         }
-
-        //public async task<serviceresponse<getcharacterdto>> getfirstcharacter()
-        //{
-        //    var serviceresponse = new serviceresponse<getcharacterdto>();
-        //    var dbcharacter = await _context.characters.firstordefaultasync(math.max(c.id));
-        //    serviceresponse.data = _mapper.map<getcharacterdto>(test[0]);
-        //    return serviceresponse;
-        //}
-
-        //public async Task<ServiceResponse<GetCharacterDto>> GetSecondCharacter()
-        //{
-        //    var serviceResponse = new ServiceResponse<GetCharacterDto>();
-        //    serviceResponse.Data = _mapper.Map<GetCharacterDto>(Test[1]);
-        //    return serviceResponse;
-        //}
-
         public async Task<ServiceResponse<GetCharacterDto>> UpdateCharacter(UpdateCharacterDto updatedCharacter)
         {
             var serviceResponse = new ServiceResponse<GetCharacterDto>();
@@ -163,7 +150,6 @@ namespace first_web_api.Services.CharacterService
             }
             return serviceResponse;
         }
-
         public async Task<ServiceResponse<GetCharacterDto>> AddCharachterSkill(AddCharacterSkillDto newCharacterSkill)
         {
             var response = new ServiceResponse<GetCharacterDto>();
