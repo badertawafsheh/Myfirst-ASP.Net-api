@@ -1,5 +1,6 @@
 using first_web_api.Data;
 using first_web_api.Services.CharacterService;
+using first_web_api.Services.WeaponService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,10 +41,10 @@ namespace first_web_api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "first_web_api", Version = "v1" });
                 c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
-                    Description = "Standrad Autharization header using Bearer scheme.Example : \"Bearer {token}\" ", 
-                    In=ParameterLocation.Header,
-                    Name = "Authorization" , 
-                    Type=SecuritySchemeType.ApiKey
+                    Description = "Standrad Autharization header using Bearer scheme.Example : \"Bearer {token}\" ",
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
 
                 });
                 c.OperationFilter<SecurityRequirementsOperationFilter>();
@@ -60,7 +61,9 @@ namespace first_web_api
                 ValidateAudience = false,
             }
             );
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IWeaponService, WeaponService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

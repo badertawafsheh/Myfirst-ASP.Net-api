@@ -1,4 +1,5 @@
-﻿using models.first_web_api;
+﻿using first_web_api.DTOs.Weapon;
+using models.first_web_api;
 
 namespace first_web_api.DTOs.Character
 {
@@ -10,5 +11,6 @@ namespace first_web_api.DTOs.Character
         public string Description { get; set; } = "Hello, Welcome to my first WepApi. using Api dotnet";
 
         public RpgClass Class { get; set; } = RpgClass.Nader;
+        public GetWeaponDto Weapon { get; set; }
     }
 }
