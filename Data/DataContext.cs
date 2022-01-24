@@ -16,5 +16,15 @@ namespace first_web_api.Data
 
         public DbSet<Skill> Skills { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Skill>().HasData(
+                new Skill { Id = 1, Name = "COOL", Damage = 30 },
+                new Skill { Id = 2, Name = "Good", Damage = 50 },
+                new Skill { Id = 3, Name = "Nice", Damage = 80 }
+
+
+                );
+        }
     }
 }
