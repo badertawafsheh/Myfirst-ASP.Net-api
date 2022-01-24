@@ -27,7 +27,7 @@ namespace first_web_api.Controllers
         }
         //[AllowAnonymous] When the methods Secure it will unlock and allow it to show the users
         [HttpGet]
-        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Get()
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> GetAllCharachters()
         {
             //int id = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value); we create a new method to give the ID of currunt user login so no need to this 
             return Ok(await _characterService.GetAllCharacters());
@@ -36,7 +36,7 @@ namespace first_web_api.Controllers
 
         // Routing using param 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle(int id)
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetCharacterbyId(int id)
         {
             return Ok(await _characterService.GetCharacterByID(id));
         }
@@ -48,7 +48,6 @@ namespace first_web_api.Controllers
             return Ok(await _characterService.AddCharacters(newCharachter));
 
         }
-
 
         [HttpPut]
         public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> UpdateCharacter(UpdateCharacterDto updatedCharachter)
@@ -65,7 +64,7 @@ namespace first_web_api.Controllers
 
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> Delete(int id)
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> DeleteCharacter(int id)
         {
             //return Ok(await _characterService.DeleteCharacter(id));
             var response = await _characterService.DeleteCharacter(id);
@@ -82,27 +81,7 @@ namespace first_web_api.Controllers
         {
             return Ok(await _characterService.AddCharachterSkill(newCharacterSkill));
         }
-        /*        
-
-        *[HttpGet]
-        * [Route("GetFirstItem")]
-
-       */
-
-        //[HttpGet("GetFirstItem")]
-        //public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle()
-        //{
-        //    return Ok(await _characterService.GetFirstCharacter());
-        //}
-
-
-        //[HttpGet]
-        //[Route("GetSecondItem")]
-        //public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle2()
-        //{
-        //    return Ok(await _characterService.GetSecondCharacter());
-        //}
-
+   
 
     }
 
