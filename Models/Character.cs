@@ -13,6 +13,8 @@ namespace models.first_web_api
         public RpgClass Class { get; set; } = RpgClass.Nader;
         public User User { get; set; }
 
+        public Weapon Weapon { get; set; }
+
     }
 
 }
