@@ -77,6 +77,11 @@ namespace first_web_api.Controllers
 
 
         }
+        [HttpPost("Skill")]
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> AddCharacterSkill(AddCharacterSkillDto newCharacterSkill)
+        {
+            return Ok(await _characterService.AddCharachterSkill(newCharacterSkill));
+        }
         /*        
 
         *[HttpGet]

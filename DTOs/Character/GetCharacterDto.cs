@@ -1,5 +1,7 @@
-﻿using first_web_api.DTOs.Weapon;
+﻿using first_web_api.DTOs.Skill;
+using first_web_api.DTOs.Weapon;
 using models.first_web_api;
+using System.Collections.Generic;
 
 namespace first_web_api.DTOs.Character
 {
@@ -12,5 +14,8 @@ namespace first_web_api.DTOs.Character
 
         public RpgClass Class { get; set; } = RpgClass.Nader;
         public GetWeaponDto Weapon { get; set; }
+
+        public List<GetSkillDto> skills { get; set; }
+
     }
 }
